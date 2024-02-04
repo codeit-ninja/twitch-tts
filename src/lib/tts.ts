@@ -16,16 +16,22 @@ export default class TTS {
     play( audio: AudioBuffer ) {
         const player = this.ctx.createBufferSource()
 
-        // Remove the audio from queue
-        this.queue.shift()
-
         this.isPlaying = true;
 
         player.buffer = audio;
         player.start(0);
         player.connect(this.ctx.destination)
         
-        player.addEventListener( 'ended', () => this.isPlaying = false )
+        player.addEventListener( 'ended', () => {
+            this.isPlaying = false 
+            this.queue.shift()
+        })
+
+        // A fallback incase the `ended` event isn't fired
+        setTimeout(() => {
+            this.isPlaying = false
+            this.queue.shift()
+        }, audio.duration * 1000)
     }
 
     next() {
