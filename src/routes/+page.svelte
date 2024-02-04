@@ -21,12 +21,12 @@
 
         client.on('connected', (address, port) => {
             log.push(`SUCCESS: Successfully connected`)
-        })
-
-        client.on('join', (channel) => {
-            log.push(`NOTICE: Joined ${channel}`)
 
             tts.listen()
+        })
+
+        client.on('join', (channel, username) => {
+            log.push(`NOTICE: ${username} joined ${channel}`)
         })
 
         client.on('message', async ( channel, tags, message, self ) => {
