@@ -3,6 +3,8 @@ export default class TTS {
 
     public queue: AudioBuffer[] = [];
 
+    public current: AudioBuffer | null = null;
+
     public isPlaying = false;
 
     public constructor() {
@@ -13,44 +15,26 @@ export default class TTS {
         this.queue.push( audio )
     }
 
-    play( audio: AudioBuffer ) {
+    play() {
+        if( this.current || this.queue.length === 0 ) {
+            return;
+        }
+
+        this.current = this.queue.at(0) as AudioBuffer;
+
         const player = this.ctx.createBufferSource()
 
-        this.isPlaying = true;
-
-        player.buffer = audio;
+        player.buffer = this.current;
         player.start(0);
         player.connect(this.ctx.destination)
         
         player.addEventListener( 'ended', () => {
-            this.isPlaying = false 
+            this.current = null 
             this.queue.shift()
         })
-
-        // A fallback incase the `ended` event isn't fired
-        setTimeout(() => {
-            this.isPlaying = false
-            this.queue.shift()
-        }, audio.duration * 1000)
-    }
-
-    next() {
-        if( this.isPlaying ) {
-            return;
-        }
-
-        const next = this.queue?.at(0)
-
-        if( ! next ) {
-            return;
-        }
-
-        console.log(this)
-
-        this.play( next )
     }
 
     listen() {
-        setInterval(this.next.bind(this), 250)
+        setInterval(this.play.bind(this), 250)
     }
 }

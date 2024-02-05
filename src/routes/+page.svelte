@@ -32,12 +32,8 @@
         client.on('message', async ( channel, tags, message, self ) => {
             log.push(`${tags.username}: ${message}`)
 
-            // TODO: Ignore bot messages
-            if( tags.username?.toLowerCase() === 'fknoobscoh' ) {
-                // return;
-            }
-
-            if( tags.username?.toLowerCase() === 'cohopponentbot' ) {
+            // Ignore messages if username has bot in it
+            if( tags.username?.includes('bot') ) {
                 return;
             }
 
