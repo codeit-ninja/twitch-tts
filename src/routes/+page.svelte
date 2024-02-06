@@ -37,6 +37,12 @@
                 return;
             }
 
+            if( message.includes('http://') || message.includes('https://') ) {
+                return;
+            }
+
+            message = message.replaceAll('%', 'percent')
+
             fetch(`https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=${tags.username} said. ${message}`)
                 .then(data => data.arrayBuffer())
                 .then(arrayBuffer => tts.ctx.decodeAudioData(arrayBuffer))
