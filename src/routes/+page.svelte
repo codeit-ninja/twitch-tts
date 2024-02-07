@@ -1,9 +1,14 @@
 <script lang="ts">
+    import type { Voice } from '@aws-sdk/client-polly';
+    import { generateSpeechUrl, getVoices } from '$lib/polly';
+    import { useCredentialsStore } from '$lib/store';
     import TTS from '$lib/tts';
+    import { onMount } from 'svelte';
     import tmi from 'tmi.js';
 
     let channel = $state('fknoobscoh')
     let log = $state<string[]>([])
+    let voices = $state<Voice[]>()
 
     const join = async () => {
         const tts = new TTS()
@@ -43,21 +48,33 @@
 
             message = message.replaceAll('%', 'percent')
 
-            fetch(`https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=${tags.username} said. ${message}`)
+            const url = await generateSpeechUrl( `${tags.username} said. ${message}` )
+
+            fetch(url)
                 .then(data => data.arrayBuffer())
                 .then(arrayBuffer => tts.ctx.decodeAudioData(arrayBuffer))
                 .then(audio => tts.add(audio))
         })
     }
+
+    onMount( async () => {
+        voices = await getVoices()
+    })
 </script>
 <div class="container">
-    <div class="box">
+    <div class="box box-primary mt-5">
         <form on:submit|preventDefault={join}>
-            <input type="text" placeholder="Channel name" bind:value={channel} />
-            <button type="submit">Join</button>
+            <div class="row mb-3 g-1">
+                <div class="col-auto">
+                    <input type="text" class="form-control" placeholder="Channel name" bind:value={channel} />
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Join</button>
+                </div>
+            </div>
         </form>
     </div>
-    <div class="box scroll">
+    <div class="box box-primary mt-2">
         <div class="content">
             {#each log as line}
                 <p
