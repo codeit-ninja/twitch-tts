@@ -1,8 +1,10 @@
-import { error, type Handle } from '@sveltejs/kit';
-import { CognitoIdentityClient, GetCredentialsForIdentityCommand } from "@aws-sdk/client-cognito-identity";
+import type { Handle } from '@sveltejs/kit';
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity';
+import { sequence } from '@sveltejs/kit/hooks';
+import { auth } from '$lib/middleware/auth';
 
-export const handle: Handle = async ({ event, resolve }) => {
+export const aws: Handle = async ({ event, resolve }) => {
     const cognitoidentity = new CognitoIdentityClient({
         credentials: fromCognitoIdentityPool({
             client: new CognitoIdentityClient({ region: 'us-east-1' }),
@@ -10,8 +12,10 @@ export const handle: Handle = async ({ event, resolve }) => {
         }),
     });
 
-    event.locals.credentials = await cognitoidentity.config.credentials()
+    event.locals.credentials = await cognitoidentity.config.credentials();
 
     const response = await resolve(event);
     return response;
 };
+
+export const handle = sequence( auth, aws )

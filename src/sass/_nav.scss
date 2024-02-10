@@ -1,0 +1,10 @@
+.nav {
+    &-link {
+        border-radius: 10px;
+
+        &.active {
+            background-color: $gray-600;
+            color: $white;
+        }
+    }
+}

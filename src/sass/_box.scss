@@ -1,8 +1,13 @@
 .box {
     border-radius: 5px;
-    padding: 1.5rem;
+    padding: 2rem;
+    margin-bottom: .75rem;
 
     &-primary {
         background-color: $gray-800;
+    }
+
+    &-secondary {
+        background-color: transparent;
     }
 }

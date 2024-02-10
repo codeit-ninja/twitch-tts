@@ -1,0 +1,12 @@
+body {
+    height: 100dvh;
+    overflow: hidden;
+}
+
+form {
+    section {
+        .row {
+            @extend .mb-4;
+        }
+    }
+}

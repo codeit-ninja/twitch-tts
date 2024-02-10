@@ -1,3 +1,4 @@
+import type { User, UserTwitchTokenData } from '@prisma/client';
 import type { AwsCredentialIdentity } from '@smithy/types';
 
 // See https://kit.svelte.dev/docs/types#app
@@ -6,7 +7,8 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-            credentials: AwsCredentialIdentity
+            credentials: AwsCredentialIdentity,
+            user: UserTwitchTokenData & { user: User }
         }
 		// interface PageData {}
 		// interface PageState {}

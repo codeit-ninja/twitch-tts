@@ -1,3 +1,4 @@
-import { createCredentialsStore } from "./stores/credentials.svelte";
+import { createStore } from "./stores/store.svelte";
 
-export const useCredentialsStore = createCredentialsStore();
+export const useCredentialsStore = createStore<App.Locals['credentials']>();
+export const useUserStore = createStore<App.Locals['user']>();

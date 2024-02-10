@@ -1,0 +1,14 @@
+.form {
+    &-label {
+        text-transform: uppercase;
+        font-size: .9rem;
+        color: $gray-100;
+    }
+
+    &-text {
+        margin-top: .5rem;
+        font-weight: 500;
+        font-size: .8rem;
+        text-transform: uppercase;
+    }
+}

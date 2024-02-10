@@ -1,5 +1,6 @@
 .btn {
-    --#{$prefix}btn-font-weight: 700;
+    --#{$prefix}btn-padding-x: 1.5rem;
+    --#{$prefix}btn-font-weight: 600;
 
     &-primary {
         --#{$prefix}btn-color: $white;
