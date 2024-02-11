@@ -1,8 +1,9 @@
 <script lang="ts">
     import { uniqueId } from 'lodash-es'
     
-    let { value, width = 'md', label, disabled = false, description } = $props<{
-        value: boolean;
+    let { name, checked, width = 'md', label, disabled = false, description } = $props<{
+        name: string;
+        checked: boolean;
         label: string;
         description?: string;
         width?: 'sm' | 'md' | 'lg' | 'full'
@@ -19,15 +20,15 @@
         class:col-md-4={width === 'sm'}
     >
         {#if label}
-            <label class="form-label" for={id}>{ label }</label>
+            <label class="form-label d-block" for={id}>{ label }</label>
         {/if}
         <div class="form-check form-switch">
             <input 
                 class="form-check-input" 
                 type="checkbox" 
                 role="switch"
-                checked={value === true}
-                bind:value
+                bind:checked
+                {name}
                 {disabled}
                 {id}
             />

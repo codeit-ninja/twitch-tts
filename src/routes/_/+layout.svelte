@@ -1,11 +1,12 @@
 <script lang="ts">    
-    import { useCredentialsStore, useUserStore } from '$lib/store';
+    import { useCredentialsStore, useTtsConfigStore, useUserStore } from '$lib/store';
     import Menu from '$lib/components/Menu.svelte';
 
     let { data } = $props()
 
     useCredentialsStore.set( data.credentials );
-    useUserStore.set( data.user );
+    useTtsConfigStore.set( data.ttsConfig );
+    useUserStore.set( { ...data.user, twitchUserId: data.twitchUserId } );
 </script>
 
 <svelte:head>

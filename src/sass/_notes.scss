@@ -1,0 +1,24 @@
+.note {
+    background-color: tint-color( $dark, 3% );
+    font-weight: 500;
+    font-size: .9rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    border-left: 3px solid transparent;
+    padding: .75rem 1rem;
+
+    &-success {
+        color: $success;
+        border-left: 3px solid $success;
+    }
+
+    &-warning {
+        color: $warning;
+        border-left: 3px solid $warning;
+    }
+
+    &-danger {
+        color: $danger;
+        border-left: 3px solid $danger;
+    }
+}

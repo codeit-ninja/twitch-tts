@@ -13,7 +13,7 @@
 <div class="row mt-4 justify-content-{ align }">
     <div class="col-auto">
         {#if icon}
-            <button {type} class="d-flex align-items-center gap-3 btn btn-{ outline ? `outline-${variant}` : variant }">
+            <button {type} class="d-flex align-items-center gap-3 btn btn-{ outline ? `outline-${variant}` : variant }" on:click>
                 <span class="material-symbols-rounded">{ icon }</span>
                 <span>{ label }</span>
             </button>

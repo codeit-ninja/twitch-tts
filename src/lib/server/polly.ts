@@ -1,9 +1,11 @@
 import { getSynthesizeSpeechUrl } from '@aws-sdk/polly-request-presigner'
-import { Engine, Polly, VoiceId } from '@aws-sdk/client-polly'
+import { Engine, Polly, VoiceId, type Voice } from '@aws-sdk/client-polly'
 import { useCredentialsStore } from '$lib/store';
 import type { AwsCredentialIdentity } from '@aws-sdk/types';
 
+// Cache some of the values
 let client: Polly | null = null;
+let voices: Voice[] | null = null;
 
 /**
  * Get AWS Polly client instance
@@ -23,9 +25,13 @@ export const getClient = ( credentials: AwsCredentialIdentity ) => {
  * @returns `Voice[]` 
  */
 export const getVoices = async ( credentials: AwsCredentialIdentity ) => {
-    const voices = await getClient( credentials ).describeVoices({ Engine: 'neural' });
-    
-    return voices.Voices!.filter( voice => voice.LanguageCode === 'en-GB' || voice.LanguageCode === 'en-US' );
+    if( voices ) {
+        return voices;
+    }
+
+    const availableVoices = await getClient( credentials ).describeVoices({ Engine: 'neural' });
+
+    return voices = availableVoices.Voices!.filter( voice => voice.LanguageCode === 'en-GB' || voice.LanguageCode === 'en-US' );
 }
 
 /**

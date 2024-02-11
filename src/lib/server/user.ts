@@ -70,6 +70,14 @@ export const createUserByToken = async ( { accessToken, expiresIn, obtainmentTim
     })
 }
 
+export const updateOrCreateToken = async ( user: User | null, token: AccessToken ) => {
+    if( ! user ) {
+        return await createUserByToken( token );
+    }
+
+    return await updateTokenForUser( user, token );
+}
+
 export const updateTokenForUser = async ( { email, id }: User, { accessToken, expiresIn, obtainmentTimestamp, refreshToken, scope }: AccessToken ) => {
     return await prisma.userTwitchTokenData.update({
         where: {

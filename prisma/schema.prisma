@@ -30,7 +30,11 @@ model UserTwitchTokenData {
 }
 
 model TtsConfig {
-    id     Int  @id @default(sequence())
-    user   User @relation(fields: [userId], references: [id])
-    userId Int  @unique
+    id          Int     @id @default(sequence())
+    user        User    @relation(fields: [userId], references: [id])
+    userId      Int     @unique
+    enabled     Boolean
+    channel     String
+    voice       Json
+    engine      String
 }

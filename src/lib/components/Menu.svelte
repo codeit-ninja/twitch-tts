@@ -6,6 +6,15 @@
     <li class="nav-item">
         <a 
             class="nav-link"
+            class:active={$page.route.id === '/_/dashboard'} 
+            href="/_/dashboard"
+        >
+            Dashboard
+        </a>
+    </li>
+    <li class="nav-item">
+        <a 
+            class="nav-link"
             class:active={$page.route.id === '/_/text-to-speech'} 
             href="/_/text-to-speech"
         >

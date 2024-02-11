@@ -1,8 +1,9 @@
 <script lang="ts" generics="T extends string">
     import { uniqueId } from 'lodash-es'
     
-    let { value, width = 'full', label, disabled = false, options, description } = $props<{
-        value: T;
+    let { value, name, width = 'full', label, disabled = false, options, description } = $props<{
+        value?: T;
+        name: string;
         label?: string;
         description?: string;
         width?: 'sm' | 'md' | 'lg' | 'full'
@@ -31,6 +32,7 @@
                     value={option}
                     bind:group={value}
                     {disabled}
+                    {name}
                     id={`${id}-${i}`}
                 />
                 <label class="form-check-label" for={`${id}-${i}`}>

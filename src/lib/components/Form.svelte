@@ -1,15 +1,18 @@
 <script lang="ts">
+    import { enhance as enh } from '$app/forms';
+    import type { SubmitFunction } from '@sveltejs/kit';
     import type { Snippet } from 'svelte';
 
     type Props = {
-        submit: ( form: HTMLFormElement ) => void;
         children: Snippet;
+        enhance: SubmitFunction;
+        action?: string;
+        method: 'POST' | 'GET' | 'PUT' | 'DELETE';
     }
 
-    let form = $state<HTMLFormElement>() as HTMLFormElement;
-    let { submit, children } = $props<Props>();
+    let { children, method, action, enhance } = $props<Props>();
 </script>
 
-<form on:submit|preventDefault={() => submit( form )} bind:this={form}>
+<form {method} {action} use:enh={enhance}>
     {@render children()}
 </form>

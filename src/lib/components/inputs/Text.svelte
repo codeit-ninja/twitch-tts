@@ -1,8 +1,9 @@
 <script lang="ts">
     import { uniqueId } from 'lodash-es'
     
-    let { value, width = 'md', label, placeholder, disabled = false, description } = $props<{
-        value: string;
+    let { value, name, width = 'md', label, placeholder, disabled = false, description } = $props<{
+        value?: string;
+        name: string;
         label?: string;
         placeholder?: string;
         description?: string;
@@ -28,6 +29,7 @@
             bind:value
             {placeholder}
             {disabled}
+            {name}
             {id}
         />
     </div>

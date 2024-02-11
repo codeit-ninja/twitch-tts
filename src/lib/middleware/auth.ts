@@ -1,8 +1,8 @@
-import { CLIENT_ID, REDIRECT_URI } from "$env/static/private";
+import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } from "$env/static/private";
 import { getTwitchUser } from "$lib/server/twitch";
-import { createUserByToken, getCurrentUser, getUserByEmail, updateTokenForUser } from "$lib/server/user";
+import { createUserByToken, getCurrentUser, getUserByEmail, updateOrCreateToken, updateTokenForUser } from "$lib/server/user";
 import { redirect, type Handle } from "@sveltejs/kit";
-import type { AccessToken } from "@twurple/auth";
+import { RefreshingAuthProvider, type AccessToken } from "@twurple/auth";
 
 export const auth: Handle = async ({ event, resolve }) => {
     const cookie = event.cookies.get( 'token' );
@@ -24,23 +24,32 @@ export const auth: Handle = async ({ event, resolve }) => {
                 'user:read:chat',
                 'user:write:chat',
                 'whispers:read',
-                'channel:moderate'
+                'channel:moderate',
+                'channel:read:redemptions',
+                'channel:manage:redemptions'
             ].join(' ')
         })
 
-        return redirect(302, `https://id.twitch.tv/oauth2/authorize?${params.toString()}`)
+        return redirect( 302, `https://id.twitch.tv/oauth2/authorize?${ params.toString() }` )
     }
+
+    const authProvider = new RefreshingAuthProvider(
+        {
+            clientId: CLIENT_ID,
+            clientSecret: CLIENT_SECRET
+        }
+    );
+
+    authProvider.onRefresh( async ( userId, newTokenData ) => updateOrCreateToken( user, newTokenData ) );
 
     const twitchUser = await getTwitchUser( token.accessToken );
     const user = await getUserByEmail( twitchUser.email! );
 
-    if( ! user ) {
-        await createUserByToken( token )
-    } else {
-        await updateTokenForUser( user, token );
-    }
+    await updateOrCreateToken( user, token );
+    await authProvider.addUserForToken( token );
 
     event.locals.user = await getCurrentUser( token.accessToken );
+    event.locals.twitchUserId = twitchUser.id;
     
     return await resolve( event );
 }

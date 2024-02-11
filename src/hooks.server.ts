@@ -1,4 +1,5 @@
 import type { Handle } from '@sveltejs/kit';
+import type { WebSocketServer } from "ws";
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity';
 import { sequence } from '@sveltejs/kit/hooks';
@@ -18,4 +19,4 @@ export const aws: Handle = async ({ event, resolve }) => {
     return response;
 };
 
-export const handle = sequence( auth, aws )
+export const handle = sequence(auth, aws)

@@ -1,14 +1,16 @@
 <script lang="ts" generics="T extends Record<string, any>">
     import { uniqueId } from 'lodash-es'
     
-    let { value, width = 'md', label, disabled = false, description, options, optionLabel } = $props<{
-        value: any;
+    let { value, name, width = 'md', label, disabled = false, description, options, optionLabel, optionValue } = $props<{
+        value?: any;
+        name: string;
         label?: string;
         description?: string;
         width?: 'sm' | 'md' | 'lg' | 'full'
         disabled?: boolean;
         options: T[];
         optionLabel: keyof T;
+        optionValue: keyof T;
     }>()
 
     const id = uniqueId('select-input-')
@@ -26,11 +28,12 @@
         <select
             class="form-select"
             bind:value
+            {name}
             {id}
             {disabled}
         >
             {#each options as option}
-                <option value={option}>{option[optionLabel]}</option>
+                <option value={option[optionValue]}>{option[optionLabel]}</option>
             {/each}
         </select>
     </div>

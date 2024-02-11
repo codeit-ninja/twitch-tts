@@ -1,6 +1,8 @@
 @import "variables";
 @import "bootstrap/scss/utilities/api";
 
+@import "alert";
+@import "notes";
 @import "box";
 @import "btn";
 @import "globals";
@@ -8,5 +10,6 @@
 @import "form";
 @import "site";
 @import "typography";
+@import "widget";
 
 @import "components/section";
