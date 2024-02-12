@@ -17,6 +17,17 @@ $gray-800: tint-color($dark, 4%);
 $gray-900: $dark;
 $black:    #000;
 
+$neutral:           #1C1C21;
+$neutral-100:       tint-color($neutral, 52%);
+$neutral-200:       tint-color($neutral, 52%);
+$neutral-300:       tint-color($neutral, 24%);
+$neutral-400:       tint-color($neutral, 20%);
+$neutral-500:       tint-color($neutral, 16%);
+$neutral-600:       tint-color($neutral, 12%);
+$neutral-700:       tint-color($neutral, 8%);
+$neutral-800:       tint-color($neutral, 4%);
+$neutral-900:       tint-color($neutral, 4%);
+
 $primary:       #FD356E;
 $secondary:     $gray-700;
 $success:       #3cff00;

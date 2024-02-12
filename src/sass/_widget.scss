@@ -1,7 +1,8 @@
 .widget {
     border-radius: $border-radius;
-    background-color: $gray-800;
+    background-color: $neutral-800;
     max-width: 650px;
+    padding-bottom: .1rem;
 
     &--header {
         border-bottom: 1px solid $gray-900;
@@ -11,13 +12,9 @@
         padding: 1rem;
     }
 
-    &--content {
-        padding: 1rem;
-    }
-
     &--title {
-        color:  $gray-100;
-        font-size: 1.1rem;
+        color:  $white;
+        font-size: 1rem;
         text-transform: uppercase;
         margin-bottom: 0;
 
@@ -27,7 +24,7 @@
             gap: 1rem;
 
             span {
-                font-size: 2rem;
+                font-size: 1.1rem;
             }
         }
     }

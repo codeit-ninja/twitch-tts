@@ -33,21 +33,21 @@ export const auth: Handle = async ({ event, resolve }) => {
         return redirect( 302, `https://id.twitch.tv/oauth2/authorize?${ params.toString() }` )
     }
 
-    const authProvider = new RefreshingAuthProvider(
-        {
-            clientId: CLIENT_ID,
-            clientSecret: CLIENT_SECRET
-        }
-    );
+    // const authProvider = new RefreshingAuthProvider(
+    //     {
+    //         clientId: CLIENT_ID,
+    //         clientSecret: CLIENT_SECRET
+    //     }
+    // );
+    
+    // await authProvider.addUser( token.accessToken, token );
 
-    authProvider.onRefresh( async ( userId, newTokenData ) => updateOrCreateToken( user, newTokenData ) );
-
+    // const newTokenData = await authProvider.refreshAccessTokenForUser( token.accessToken );
     const twitchUser = await getTwitchUser( token.accessToken );
     const user = await getUserByEmail( twitchUser.email! );
 
     await updateOrCreateToken( user, token );
-    await authProvider.addUserForToken( token );
-
+    
     event.locals.user = await getCurrentUser( token.accessToken );
     event.locals.twitchUserId = twitchUser.id;
     
