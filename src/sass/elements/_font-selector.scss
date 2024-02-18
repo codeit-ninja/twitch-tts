@@ -1,0 +1,9 @@
+.element--font--selector {
+    &--dropdown {
+        .dropdown-menu {
+            max-height: 400px;
+            width: 100%;
+            overflow: auto;
+        }
+    }
+}

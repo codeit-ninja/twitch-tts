@@ -1,0 +1,23 @@
+.dropdown {
+    &-tags {
+        .dropdown-menu {
+            background-color: $gray-700;
+            width: 100%;
+            max-height: 400px;
+            overflow: auto;
+            border: 1px solid $gray-500;
+        }
+
+        .dropdown-item {
+            font-family: $font-family-monospace;
+            font-size: .9rem;
+            color: $info;
+
+            &:hover,
+            &:focus,
+            &:active {
+                background-color: transparent;
+            }
+        }
+    }
+}

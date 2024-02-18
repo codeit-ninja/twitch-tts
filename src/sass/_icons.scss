@@ -1,0 +1,23 @@
+.create-trigger {
+    .bolt {
+        color: $info;
+    }
+
+    .subdirectory_arrow_right {
+        color: rgba($warning, .7);
+    }
+
+    .arrow_right_alt {
+        color: $gray-500;
+    }
+
+    .radio_button_checked {
+        color: $gray-300;
+    }
+
+    .local_fire_department,
+    .functions,
+    .function {
+        color: $primary;
+    }
+}

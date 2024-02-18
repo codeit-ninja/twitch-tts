@@ -6,3 +6,9 @@ h6 {
     color: $gray-100;
     margin-bottom: 1.5rem;
 }
+
+code {
+    position: relative;
+    color: $code-color;
+    top: 2px;
+}

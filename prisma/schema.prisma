@@ -5,18 +5,25 @@ generator client {
     provider = "prisma-client-js"
 }
 
+generator json {
+    provider = "prisma-json-types-generator"
+    namespace = "PrismaJson"
+}
+
 datasource db {
-    provider = "cockroachdb"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
 model User {
-    id                  Int        @id @default(sequence())
-    username            String     @unique
+    id                  Int         @id @default(autoincrement())
+    username            String      @unique
     password            String
-    email               String     @unique
+    email               String      @unique
     TtsConfig           TtsConfig?
     UserTwitchTokenData UserTwitchTokenData?
+    triggers            Triggers[]
+    triggerActions      TriggerActions[]
 }
 
 model UserTwitchTokenData {
@@ -24,17 +31,35 @@ model UserTwitchTokenData {
     userId              Int         @unique
     accessToken         String
     expiresIn           Int?        
-    obtainmentTimestamp BigInt      @db.Int8
+    obtainmentTimestamp BigInt      @db.BigInt
     refreshToken        String?
     scope               String[]
 }
 
 model TtsConfig {
-    id          Int     @id @default(sequence())
+    id          Int     @id @default(autoincrement())
     user        User    @relation(fields: [userId], references: [id])
     userId      Int     @unique
     enabled     Boolean
     channel     String
     voice       Json
     engine      String
+}
+
+model Triggers {
+    id          Int     @id @default(autoincrement())
+    user        User    @relation(fields: [userId], references: [id])
+    userId      Int
+    event       String
+    /// [PrismaJson.TriggerCondition]
+    conditions  Json?
+    triggerActions TriggerActions[]
+}
+
+model TriggerActions {
+    id          Int         @id @default(autoincrement())
+    user        User        @relation(fields: [userId], references: [id])
+    userId      Int
+    trigger     Triggers    @relation(fields: [triggerId], references: [id])
+    triggerId   Int
 }

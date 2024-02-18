@@ -1,8 +1,12 @@
 /* Variables and mixins declared here will be available in all other SCSS files */
 @import "bootstrap/scss/functions"; /* Override Bootstrap's variables here */
+@import "./fonts";
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700;900&display=swap');
 
 $prefix: codeit--;
 
+$font-family-sans-serif: "Zen Kaku Gothic Antique", sans-serif;
+$font-family-monospace: "Monaspace Krypton", sans-serif;
 
 $dark:     #19191D;
 $white:    #fff;
@@ -27,6 +31,8 @@ $neutral-600:       tint-color($neutral, 12%);
 $neutral-700:       tint-color($neutral, 8%);
 $neutral-800:       tint-color($neutral, 4%);
 $neutral-900:       tint-color($neutral, 4%);
+
+$code-color: #57E4C2;
 
 $primary:       #FD356E;
 $secondary:     $gray-700;
@@ -69,6 +75,8 @@ $input-bg:                              var(--#{$prefix}body-bg);
 $input-disabled-color:                  $gray-700;
 $input-disabled-bg:                     $gray-900;
 $input-disabled-border-color:           $gray-800;
+$input-padding-y:                       .75rem;
+$input-padding-x:                       1rem;
 
 $input-color:                           var(--#{$prefix}body-color);
 $input-border-color:                    $gray-300;
@@ -77,6 +85,7 @@ $input-focus-border-color:              $gray-100;
 $input-focus-box-shadow:                none;
 
 $form-select-disabled-color:            $input-disabled-color;
+$form-select-focus-box-shadow:          none;
 
 $enable-shadows: false;
 

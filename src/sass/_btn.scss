@@ -5,4 +5,19 @@
     &-primary {
         --#{$prefix}btn-color: $white;
     }
+
+    &-dark {
+        --#{$prefix}btn-bg: #{tint-color( $dark, 3% )};
+    }
+
+    &-appearance {
+        &:hover {
+            box-shadow: none !important;
+        }
+
+        &:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
 }

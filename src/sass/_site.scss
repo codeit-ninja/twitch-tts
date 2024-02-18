@@ -12,6 +12,13 @@
         }
     }
 
+    :has(.unset--site--main) {
+        padding-left: 0;
+        padding-top: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+
     &--main {
         flex-grow: 1;
         max-width: 1150px;
@@ -26,5 +33,15 @@
         margin-bottom: 2.5rem;
         font-size: 2rem;
         font-weight: 500;
+    }
+
+    &--toolbar {
+        border-right: 1px solid $neutral-800;
+        min-width: 360px;
+        padding: 2rem;
+    }
+
+    &--editor {
+        flex-grow: 1;
     }
 }

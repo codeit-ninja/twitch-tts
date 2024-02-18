@@ -24,10 +24,10 @@
     <li class="nav-item">
         <a 
             class="nav-link"
-            class:active={$page.route.id === '/_/chat-overlay'} 
-            href="/_/chat-overlay"
+            class:active={$page.route.id === '/_/triggers'} 
+            href="/_/triggers"
         >
-            Chat overlay
+            Triggers
         </a>
     </li>
 </ul>

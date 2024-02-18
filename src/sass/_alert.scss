@@ -1,4 +1,11 @@
 .alert {
+    &-info {
+        --#{$prefix}alert-bg: #{rgba($info, .1)};
+        --#{$prefix}alert-margin-bottom: 3rem;
+        --#{$prefix}alert-color: inherit;
+        --#{$prefix}alert-border: #{$alert-border-width} solid #{$info};
+    }
+
     &-success {
         --#{$prefix}alert-bg: #{rgba($success, .1)};
         --#{$prefix}alert-margin-bottom: 3rem;

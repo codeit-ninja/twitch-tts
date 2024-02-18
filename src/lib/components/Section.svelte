@@ -10,10 +10,10 @@
 </script>
 <section>
     <h6>
-        <span class="material-symbols-rounded">{ icon }</span>
         {#if icon}
-            <span>{ title }</span>
+            <span class="material-symbols-rounded">{ icon }</span>
         {/if}
+        <span>{ title }</span>
     </h6>
     {#if children}
         {@render children()}

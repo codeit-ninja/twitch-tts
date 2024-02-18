@@ -1,0 +1,14 @@
+.chat--overlay--builder {
+    display: flex;
+    height: 100%;
+
+    &--preview {
+        flex-grow: 1;
+    }
+
+    &--toolbar {
+        background-color: $gray-800;
+        min-width: 300px;
+        padding: 1rem;
+    }
+}

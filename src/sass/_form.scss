@@ -1,3 +1,7 @@
+form section .row {
+    margin-bottom: .5rem !important;
+}
+
 .form {
     &-label {
         text-transform: uppercase;
@@ -38,6 +42,103 @@
             text-transform: uppercase;
             color: $gray-100;
             top: 1px;
+        }
+    }
+
+    &-select {
+        --#{$prefix}form-select-bg-img: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/></svg>");
+
+        background-color: $gray-700;
+        border-color: $gray-500;
+    }
+
+    &-control {
+        &-color {
+            background-color: transparent;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            overflow: hidden;
+            border: none;
+        }
+
+        &-range,
+        &-picker {
+            span {
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: .8rem;
+            }
+        }
+
+        &-tags {
+            span {
+                color: $code-color;
+                font-family: $font-family-monospace;
+                font-size: .9rem;
+            }
+        }
+    }
+}
+
+.input-group {
+    &-text {
+        background-color: $gray-800;
+        border-color: $gray-800;
+        text-transform: uppercase;
+        font-weight: 900;
+        font-size: .8rem;
+        color: $gray-200;
+        width: 100px;
+        text-align: left;
+
+        &:has(.form-select, .form-control) {
+            padding: 0;
+
+            .form-select {
+                background-color: $gray-800;
+                border-color: $gray-800;
+                text-transform: uppercase;
+                font-weight: 900;
+                font-size: .8rem;
+                color: $gray-200;
+                width: 100px;
+                text-align: left;
+                padding: 0 3rem 0 1rem;
+            }
+        }
+    }
+
+    .form-select,
+    .form-control {
+        background-color: $gray-700;
+        border-color: $gray-700;
+    }
+
+    &-trigger,
+    &-trigger-condition {
+        .form-select,
+        .form-control {
+            font-weight: 500;
+            font-size: .8rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .form-select {
+            text-transform: uppercase;
+        }
+    }
+
+    &-trigger-condition {
+        .form-select {
+            color: $gray-100;
+        }
+
+        .form-control {
+            font-family: $font-family-monospace;
+            color: $success;
         }
     }
 }
