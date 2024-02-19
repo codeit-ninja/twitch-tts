@@ -10,6 +10,7 @@
     import { formDataToObject } from '$lib/utils';
     import Alert from '$lib/components/Alert.svelte';
     import TextToSpeech from '$lib/components/offcanvas/TextToSpeech.svelte';
+    import Tags from '$lib/components/inputs/Tags.svelte';
 
     const { data } = $props();
 
@@ -173,10 +174,19 @@
                 </div>
             </div>
             
-            {#if action.type === 'tts'}
+            <!-- {#if action.type === 'tts'}
                 <TextToSpeech index={ i } id="offcanvas-tts-{ i }" voices={ data.voices } fields={ selectedTriggerFields } />
-            {/if}
+            {/if} -->
         {/each}
+        <div class="row">
+            <div class="col-lg-8">
+                <Tags
+                    name="test"
+                    tags={ selectedTriggerFields }
+                    tagsName="test.tags"
+                />
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-8">
                 <div class="d-flex justify-content-end">
