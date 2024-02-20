@@ -8,10 +8,6 @@
     }>();
 
     let value = $state( setting.value );
-
-    $effect(() => {
-        console.log(setting)
-    })
 </script>
 
 {#if setting.type === 'color'}

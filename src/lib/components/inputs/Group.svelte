@@ -6,8 +6,6 @@
         after?: string | Snippet;
         children: Snippet;
     }>();
-
-    console.log(before)
 </script>
 <div class="input-group">
     {#if before}

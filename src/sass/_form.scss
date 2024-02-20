@@ -2,6 +2,13 @@ form section .row {
     margin-bottom: .5rem !important;
 }
 
+div[contenteditable="true"],
+div[contenteditable="plaintext-only"] {
+    resize: vertical;
+    overflow: auto;
+    min-height: 150px;
+}
+
 .form {
     &-label {
         text-transform: uppercase;

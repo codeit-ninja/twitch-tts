@@ -14,8 +14,6 @@
     }>();
 
     let voice = $state<Voice>( voices[0] );
-
-    console.log(fields)
 </script>
 <Offcanvas { id } placement="right" class="offcanvas-text-to-speech">
     <h4 class="px-5 pt-5">Text to Speech</h4>
@@ -23,7 +21,7 @@
         <div class="mb-4">
             <Select
                 label="Character"
-                name="action[{ index }].data.voice"
+                name="actions[{ index }].voice"
                 options={ voices }
                 optionLabel="Name"
                 optionValue="Id"
@@ -33,15 +31,15 @@
             <Radio
                 label="Type"
                 value="neural"
-                name="action[{ index }].data.engine"
+                name="actions[{ index }].engine"
                 options={ voice.SupportedEngines! }
             />
         </div>
         <div class="mb-4">
             <Tags 
                 label="message"
-                name="action[{ index }].data.message"
-                tagsName="action[{ index }].data.tags"
+                name="actions[{ index }].message"
+                tagsName="actions[{ index }].tags"
                 tags={ fields }
                 autocomplete="off"
             />

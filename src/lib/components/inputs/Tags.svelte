@@ -23,9 +23,15 @@
     let contentEditable: ContentEditable;
     let id = uniqueId('tags-input-');
 
+    let isTagging = $state(false);
+    let tagKeyword = $state('');
+    let tagsByKeyword = $derived( tags.filter( tag => tag.startsWith( tagKeyword ) ) );
+    let selectedTags = $state<string[]>([]);
+
     const insertTag = ( tag: string ) => {
+        contentEditable.select( 1, contentEditable.currentTextNode.textContent!.length -1 );
         contentEditable.insert( document.createTextNode( tag ) );
-        contentEditable.moveCaret( tag.length );
+        contentEditable.moveCaret( contentEditable.currentTextNode.textContent!.length )
 
         dropdownElement.hide();
     }
@@ -37,7 +43,20 @@
         dropdownElement = new Dropdown( inputElement! );
         contentEditable = new ContentEditable( inputElement );
 
-        contentEditable.addListener('update', (ce) => console.log(ce.value));
+        contentEditable.addListener('change', (ce) => {
+            value = ce.value;
+
+            const matches: string[] = [];
+            const regex = (value as string).matchAll( /{([a-z_.0-9\[\]]+)}/g );
+            
+            for( const match of regex ) {
+                if( tags.includes( match[1] ) ) {
+                    matches.push( match[1] );
+                }
+            }
+
+            selectedTags = matches;
+        });
 
         contentEditable.addListener('keyup', (event, ce) => {
             if( event.key === '{' ) {
@@ -50,7 +69,7 @@
                 ce.wrap( document.createElement( 'span' ) );
                 ce.moveCaret(-1);
 
-                dropdownElement.show();
+                isTagging = true;
             }
             
 
@@ -61,11 +80,27 @@
                     if( ! ce.caretChar.right ) {
                         ce.currentTextNode.parentElement!.insertAdjacentText('afterend', '\u00A0');
                     }
-
+                    
+                    isTagging = false;
                     ce.moveCaret(1);
                 }
             }
+
+            if( ce.currentTextNode.parentElement?.nodeName === 'SPAN' ) {
+                isTagging = true;
+                tagKeyword = contentEditable.currentTextNode.parentElement!.textContent!.replace(/[\{\}]/g, '');
+            } else {
+                isTagging = false;
+            }
         })
+    })
+
+    $effect(() => {
+        if( isTagging ) {
+            dropdownElement?.show();
+        } else {
+            dropdownElement?.hide();
+        }
     })
 </script>
 {#if label}
@@ -79,9 +114,10 @@
         role="textbox"
         aria-placeholder="Write the message here"
         tabindex="0"
-    >asdasdasdasd</div>
+        style="resize: vertical;"
+    ></div>
     <ul class="dropdown-menu">
-        {#each tags as tag}
+        {#each tagsByKeyword as tag}
             <li>
                 <a role="button" class="dropdown-item" onclick={ () => insertTag( tag ) } tabindex="0" href={'#'}>{ tag }</a>
             </li>
@@ -98,6 +134,14 @@
     { id }
     { ...rest }
 />
+{#each selectedTags as tag, i}
+    <input
+        type="hidden"
+        class="form-control"
+        value={ tag }
+        name="{ tagsName }[{ i }]"
+    />
+{/each}
 {#if description}
     <div class="form-text">{ description }</div>
 {/if}

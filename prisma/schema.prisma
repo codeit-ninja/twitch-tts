@@ -5,11 +5,6 @@ generator client {
     provider = "prisma-client-js"
 }
 
-generator json {
-    provider = "prisma-json-types-generator"
-    namespace = "PrismaJson"
-}
-
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
@@ -53,7 +48,7 @@ model Triggers {
     event       String
     /// [PrismaJson.TriggerCondition]
     conditions  Json?
-    triggerActions TriggerActions[]
+    actions     TriggerActions[]
 }
 
 model TriggerActions {
@@ -62,4 +57,6 @@ model TriggerActions {
     userId      Int
     trigger     Triggers    @relation(fields: [triggerId], references: [id])
     triggerId   Int
+    /// [PrismaJson.TriggerActionTts]
+    data        Json
 }

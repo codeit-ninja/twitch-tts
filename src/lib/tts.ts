@@ -18,7 +18,6 @@ export default class TTS {
     }
 
     play() {
-        console.log(this)
         if( this.current || this.queue.length === 0 ) {
             return;
         }
@@ -34,8 +33,6 @@ export default class TTS {
         player.addEventListener( 'ended', () => {
             this.current = null 
             this.queue.shift()
-
-            console.log(this)
         })
     }
 

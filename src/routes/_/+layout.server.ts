@@ -6,9 +6,29 @@ export const load: LayoutServerLoad = async ({ locals }) => {
         {
             where: { userId: locals.user.userId }
         }
+    );
+
+    const triggers = await prisma.triggers.findMany(
+        {
+            where: {
+                userId: locals.user.userId
+            },
+            select: {
+                actions: {
+                    select: {
+                        data: true
+                    }
+                },
+                id: true,
+                conditions: true,
+                userId: false,
+                event: true
+            }
+        }
     )
 
 	return {
+        triggers,
 		credentials: locals.credentials,
         user: locals.user,
         ttsConfig,

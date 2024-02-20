@@ -227,6 +227,24 @@ declare global {
             value: string;
             operator?: '||' | '&&';
         }
+
+        type TriggerAction<T extends Record<string, any> = Record<string, any>> = {
+            type: string;
+        } & T;
+
+        type TriggerActionTts = TriggerAction<{
+            engine: string;
+            message: string;
+            voice: string;
+        }>;
+    }
+
+    namespace Forms {
+        type TriggerData = {
+            trigger: string;
+            conditions: PrismaJson.TriggerCondition[];
+            actions: PrismaJson.TriggerAction[];
+        }
     }
 }
 

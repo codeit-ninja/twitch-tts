@@ -24,8 +24,6 @@ export const saveTokenData = async ( tokenData: AccessToken ) => {
         }
 
         const user = await client.users.getAuthenticatedUser( tokenInfo.userId, true );
-
-        console.log({...user})
         // prisma.user.create({
         //     data: {
 

@@ -71,14 +71,14 @@ $body-secondary-color:  $gray-400;
 
 $font-size-base: 1.1rem;
 
-$input-bg:                              var(--#{$prefix}body-bg);
+$input-bg:                              $gray-700;
 $input-disabled-color:                  $gray-700;
 $input-disabled-bg:                     $gray-900;
 $input-disabled-border-color:           $gray-800;
 $input-padding-y:                       .75rem;
 $input-padding-x:                       1rem;
 
-$input-color:                           var(--#{$prefix}body-color);
+$input-color:                           $gray-100;
 $input-border-color:                    $gray-300;
 
 $input-focus-border-color:              $gray-100;

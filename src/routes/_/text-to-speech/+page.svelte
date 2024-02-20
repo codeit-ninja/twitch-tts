@@ -74,7 +74,6 @@
         <Select 
             label="Voice character" 
             description="Select the voice character you like the most." 
-            width="sm"
             options={ data.voices }
             optionValue="Id"
             optionLabel="Name"

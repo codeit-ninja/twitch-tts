@@ -30,6 +30,26 @@ CREATE TABLE "TtsConfig" (
     CONSTRAINT "TtsConfig_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Triggers" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "event" TEXT NOT NULL,
+    "conditions" JSONB,
+
+    CONSTRAINT "Triggers_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "TriggerActions" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "triggerId" INTEGER NOT NULL,
+    "data" JSONB NOT NULL,
+
+    CONSTRAINT "TriggerActions_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
@@ -47,3 +67,12 @@ ALTER TABLE "UserTwitchTokenData" ADD CONSTRAINT "UserTwitchTokenData_userId_fke
 
 -- AddForeignKey
 ALTER TABLE "TtsConfig" ADD CONSTRAINT "TtsConfig_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Triggers" ADD CONSTRAINT "Triggers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TriggerActions" ADD CONSTRAINT "TriggerActions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TriggerActions" ADD CONSTRAINT "TriggerActions_triggerId_fkey" FOREIGN KEY ("triggerId") REFERENCES "Triggers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

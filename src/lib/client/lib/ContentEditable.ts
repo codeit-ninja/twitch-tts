@@ -15,7 +15,7 @@ export type ContentEditableEvents = {
     'keyup': ( e: KeyboardEvent, ce: ContentEditable ) => void;
 }
 
-export function getCaretCharacterOffsetWithin(element: HTMLElement | Node): number {
+export function getCaretOffsetWithin(element: HTMLElement | Node): number {
     let caretOffset = 0;
     const doc = element.ownerDocument;
     const win = doc?.defaultView;
@@ -59,7 +59,20 @@ export class ContentEditable extends EventEmitter<ContentEditableEvents> {
 
         element.addEventListener( 'keyup', this.keyup.bind( this ) );
         element.addEventListener( 'keydown', this.keydown.bind( this ) );
-        element.addEventListener( 'click', this.onFocus.bind( this ) );
+        element.addEventListener( 'click', this.onFocus.bind( this ) );        
+
+        let oldValue = this.value;
+        const int = setInterval(() => {
+            if( this.value !== oldValue ) {
+                this.emit( 'change', this );
+            }
+
+            if( this.element.isConnected === false ) {
+                clearInterval( int );
+            }
+
+            oldValue = this.value;
+        }, 50 )
 
         this.updateState();
     }
@@ -185,7 +198,7 @@ export class ContentEditable extends EventEmitter<ContentEditableEvents> {
         }
 
         let node: ChildNode | null | undefined = null;
-        offset = getCaretCharacterOffsetWithin( this.currentTextNode ) + offset;
+        offset = getCaretOffsetWithin( this.currentTextNode ) + offset;
 
         // The current offset moves out of the current TextNode
         // Move to next TextNode
@@ -220,7 +233,7 @@ export class ContentEditable extends EventEmitter<ContentEditableEvents> {
     }
 
     charAtCaret( side: 'left' | 'right' ) {
-        return this.charAt( getCaretCharacterOffsetWithin( this.element ) + ( side === 'left' ? -1 : 0  ) )
+        return this.charAt( getCaretOffsetWithin( this.element ) + ( side === 'left' ? -1 : 0  ) )
     }
 
     get caretChar() {

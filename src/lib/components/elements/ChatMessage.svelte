@@ -2,8 +2,6 @@
     import type { EventsubNotificationChannelChatMessagePayload } from "$lib/client/twitch/EventSub.svelte";
  
     const { data } = $props<{ data: EventsubNotificationChannelChatMessagePayload['event'] }>();
-
-    console.log(data);
 </script>
 
 <div class="element--chat--message">
