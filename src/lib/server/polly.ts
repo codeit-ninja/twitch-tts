@@ -1,6 +1,5 @@
 import { getSynthesizeSpeechUrl } from '@aws-sdk/polly-request-presigner'
-import { Engine, Polly, VoiceId, type Voice } from '@aws-sdk/client-polly'
-import { useCredentialsStore } from '$lib/store';
+import { Engine, Polly, VoiceId, type Voice } from '@aws-sdk/client-polly';
 import type { AwsCredentialIdentity } from '@aws-sdk/types';
 
 // Cache some of the values
@@ -35,6 +34,7 @@ export const getVoices = async ( credentials: AwsCredentialIdentity ) => {
 }
 
 /**
+ * Generate speech audio URL
  * 
  * @param text      - text to speak
  * @param voiceId   - name of the voice character
@@ -42,9 +42,9 @@ export const getVoices = async ( credentials: AwsCredentialIdentity ) => {
  * 
  * @returns `string`
  */
-export const generateSpeechUrl = ( text: string, voiceId: VoiceId = 'Kevin', engine: Engine = 'neural' ) => {
+export const generateSpeechUrl = ( credentials: AwsCredentialIdentity, text: string, voiceId: VoiceId = 'Kevin', engine: Engine = 'neural' ) => {
     return getSynthesizeSpeechUrl({ 
-        client: createClient(),
+        client: getClient( credentials ),
         params: {
             OutputFormat: "ogg_vorbis",
             SampleRate: "24000",

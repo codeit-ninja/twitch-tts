@@ -175,6 +175,10 @@ declare global {
         >;
     }
 
+    type AllSubscriptions = 
+        Subscriptions['channel.chat.message'] | 
+        Subscriptions['channel.channel_points_custom_reward_redemption.add']
+
     type GetTypeForEvent<K extends keyof Eventsub> = Eventsub[K] extends { metadata: { message_type: K } }
         ? Eventsub[K]
         : never;
@@ -220,6 +224,9 @@ declare global {
         parentKey?: string;
     }
 
+    type TriggerActions =
+        PrismaJson.TriggerActionTts
+
     namespace PrismaJson {
         type TriggerCondition = {
             field: string;
@@ -229,13 +236,14 @@ declare global {
         }
 
         type TriggerAction<T extends Record<string, any> = Record<string, any>> = {
-            type: string;
+            type: 'tts';
         } & T;
 
         type TriggerActionTts = TriggerAction<{
             engine: string;
             message: string;
             voice: string;
+            tags?: string[];
         }>;
     }
 

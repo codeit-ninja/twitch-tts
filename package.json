@@ -50,6 +50,7 @@
     "@twurple/auth": "^7.0.8",
     "aws-sdk": "^2.1552.0",
     "bootstrap": "5.3.2",
+    "dot-prop": "^8.0.2",
     "eventemitter3": "^5.0.1",
     "install": "^0.13.0",
     "lodash-es": "^4.17.21",

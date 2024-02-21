@@ -15,19 +15,19 @@ export const actions: Actions = {
 	createTrigger: async ({ request, locals }) => {
 		const data = await request.formData();
         const json = formDataToObject(data) as Forms.TriggerData;
-
+        
+        const actions = json.actions.map( action => ( {
+            data: action,
+            userId: locals.user.userId
+        } ) )
+        
         await prisma.triggers.create({
             data: {
                 event: json.trigger,
                 actions: {
-                    create: {
-                        data: json.actions,
-                        user: {
-                            connect: {
-                                id: locals.user.userId
-                            }
-                        }
-                    }
+                    createMany: {
+                        data: actions
+                    },
                 },
                 conditions: json.conditions,
                 user: {

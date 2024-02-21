@@ -76,10 +76,32 @@ namespace EventSub {
         'websocket_network_timeout' |
         'websocket_network_error';
 
+    type SubscriptionCondition = {
+        'channel.chat.message': {
+            broadcaster_user_id: string;
+            user_id: string;
+        }
+        'channel.channel_points_custom_reward_redemption.add': {
+            broadcaster_user_id: string;
+            reward_id: string;
+        }
+        [key: keyof SubscriptionTypes]: Record<string, string>;
+    }
+
     type GetSubscriptionsParams = {
         status?: SubscriptionStatus;
         type?: SubscriptionTypes;
         user_id?: string;
         after?: string;
+    }
+
+    type CreateSubscriptionRequestBody<T extends SubscriptionTypes> = {
+        type: T;
+        version: string;
+        condition: SubscriptionCondition[T];
+        transport: {
+            method: 'websocket',
+            session_id: string;
+        }
     }
 }

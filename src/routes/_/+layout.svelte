@@ -11,16 +11,29 @@
     useTtsConfigStore.set( data.ttsConfig );
     useUserStore.set( { ...data.user, twitchUserId: data.twitchUserId } );
 
-    onMount( async () => {
-        const triggersWorker = new TriggersWorker({ name: 'triggers' });
-        const workerPostMessageData = {
-            type: 'INIT',
-            triggers: data.triggers,
-            user: useUserStore.get()
-        }
+    // onMount( async () => {
+    //     const triggersWorker = new TriggersWorker({ name: 'triggers' });
+    //     const workerPostMessageData = {
+    //         type: 'init',
+    //         triggers: data.triggers,
+    //         user: useUserStore.get()
+    //     }
 
-        triggersWorker.postMessage( JSON.stringify( workerPostMessageData ) );
-    })
+    //     triggersWorker.postMessage( JSON.parse(JSON.stringify(workerPostMessageData)) );
+    //     triggersWorker.onmessage = (e) => {
+    //         if( e.data.type === 'tts.play' ) {
+    //             if( ! audio ) {
+    //                 return;
+    //             }
+
+    //             audio.src = e.data.url;
+    //             audio.play();
+    //         }
+    //     }
+
+    //     audio!.addEventListener( 'playing', () => triggersWorker.postMessage( { type: 'tts.playing' } ) );
+    //     audio!.addEventListener( 'ended', () => triggersWorker.postMessage( { type: 'tts.ended' } ) );
+    // })
 </script>
 
 <svelte:head>
