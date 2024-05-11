@@ -2,7 +2,7 @@
     import TTS from '$lib/tts';
     import tmi from 'tmi.js';
 
-    let channel = $state('craklax')
+    let channel = $state('fknoobscoh')
     let log = $state<string[]>([])
     let layout = $state('{tags.username} said {message}')
 
@@ -52,12 +52,11 @@
             }
 
             message = message.replaceAll('%', 'percent')
-            //message = 
-            console.log(Function(layout.replaceAll('{', '${')))
-            // fetch(`https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=${tags.username} said. ${message}`)
-            //     .then(data => data.arrayBuffer())
-            //     .then(arrayBuffer => tts.ctx.decodeAudioData(arrayBuffer))
-            //     .then(audio => tts.add(audio))
+            
+            fetch(`https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=${message}`)
+                .then(data => data.arrayBuffer())
+                .then(arrayBuffer => tts.ctx.decodeAudioData(arrayBuffer))
+                .then(audio => tts.add(audio))
         })
     }
 </script>
@@ -66,10 +65,10 @@
         <form on:submit|preventDefault={join}>
             <input type="text" placeholder="Channel name" bind:value={channel} />
             <button type="submit">Join</button>
-            <div>
+            <!-- <div>
                 <label for="msg-layout">Message layout</label>
                 <input type="text" id="msg-layout" style="width: 100%;" bind:value={layout} />
-            </div>
+            </div> -->
         </form>
     </div>
     <div class="box scroll">
