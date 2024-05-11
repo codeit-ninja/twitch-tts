@@ -1,0 +1,1 @@
+import{v as n,w as s,x as u}from"./runtime.CFl1NsvJ.js";import{p as r}from"./render.ghOspvTV.js";const e=(o=null)=>{let t=n(r(o));return{get state(){return s(t)},get:()=>Object.assign({},s(t)),set:a=>u(t,r(a))}},g=e(),i=e(),p=e(null);export{p as a,i as b,g as u};

@@ -1,0 +1,1 @@
+import{c as o,b as u,d as i}from"./runtime.CFl1NsvJ.js";function a(n){if(o===null)throw new Error("onMount can only be used during component initialisation.");o.r?u(()=>{const r=i(n);if(typeof r=="function")return r}):t(o).m.push(n)}function t(n){return n.u??(n.u={a:[],b:[],m:[]})}export{a as o};

@@ -1,0 +1,1 @@
+import"../chunks/disclose-version.bJ1TNjgf.js";import{b as e,p as s,a as n}from"../chunks/runtime.CFl1NsvJ.js";import{h as r,j as i,d as p}from"../chunks/render.ghOspvTV.js";var m=p('<div><button class="btn btn-primary">Click me</button> What is going on?!!?!?</div>');function l(t,o){n(o,!0),e(()=>{console.log(o.count)});var a=i(t,!0,m);r(t,a),s()}export{l as component};

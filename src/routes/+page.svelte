@@ -2,12 +2,21 @@
     import TTS from '$lib/tts';
     import tmi from 'tmi.js';
 
-    let channel = $state('fknoobscoh')
+    let channel = $state('craklax')
     let log = $state<string[]>([])
+    let layout = $state('{tags.username} said {message}')
+
+    let tts: TTS;
+    let client: tmi.Client;
 
     const join = async () => {
-        const tts = new TTS()
-        const client = new tmi.Client({
+        if (client) {
+            tts.destroy();
+            await client.disconnect();
+        }
+
+        tts = new TTS()
+        client = new tmi.Client({
             options: { debug: true },
             channels: [channel]
         })
@@ -33,6 +42,7 @@
             log.push(`${tags.username}: ${message}`)
 
             // Ignore messages if username has bot in it
+            // Usualy those are bots :|
             if( tags.username?.includes('bot') ) {
                 return;
             }
@@ -42,11 +52,12 @@
             }
 
             message = message.replaceAll('%', 'percent')
-
-            fetch(`https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=${tags.username} said. ${message}`)
-                .then(data => data.arrayBuffer())
-                .then(arrayBuffer => tts.ctx.decodeAudioData(arrayBuffer))
-                .then(audio => tts.add(audio))
+            //message = 
+            console.log(Function(layout.replaceAll('{', '${')))
+            // fetch(`https://api.streamelements.com/kappa/v2/speech?voice=Brian&text=${tags.username} said. ${message}`)
+            //     .then(data => data.arrayBuffer())
+            //     .then(arrayBuffer => tts.ctx.decodeAudioData(arrayBuffer))
+            //     .then(audio => tts.add(audio))
         })
     }
 </script>
@@ -55,6 +66,10 @@
         <form on:submit|preventDefault={join}>
             <input type="text" placeholder="Channel name" bind:value={channel} />
             <button type="submit">Join</button>
+            <div>
+                <label for="msg-layout">Message layout</label>
+                <input type="text" id="msg-layout" style="width: 100%;" bind:value={layout} />
+            </div>
         </form>
     </div>
     <div class="box scroll">

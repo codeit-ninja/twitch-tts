@@ -37,4 +37,9 @@ export default class TTS {
     listen() {
         setInterval(this.play.bind(this), 250)
     }
+
+    destroy() {
+        this.queue = [];
+        this.current = null;
+    }
 }
