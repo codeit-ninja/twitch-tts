@@ -1,5 +1,5 @@
 import { generateSpeechUrl } from "$lib/server/polly";
-import type { RequestEvent } from "./$types";
+import type { RequestEvent } from "@sveltejs/kit";
 
 export async function POST({ locals, request, fetch }: RequestEvent) {
     const { message, voiceId, engine } = await request.json();

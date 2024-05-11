@@ -23,6 +23,7 @@ export const actions: Actions = {
         
         await prisma.triggers.create({
             data: {
+                name: json.name,
                 event: json.trigger,
                 actions: {
                     createMany: {

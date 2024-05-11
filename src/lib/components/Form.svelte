@@ -9,7 +9,7 @@
         enhance: SubmitFunction;
         action?: string;
         method: 'POST' | 'GET' | 'PUT' | 'DELETE';
-        rest?: Record<'class', string>;
+        rest?: HTMLFormAttributes;
     } & HTMLFormAttributes;
 
     let { children, method, action, enhance, ...rest } = $props<Props>();

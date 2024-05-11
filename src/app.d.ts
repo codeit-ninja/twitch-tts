@@ -249,6 +249,7 @@ declare global {
 
     namespace Forms {
         type TriggerData = {
+            name: string;
             trigger: string;
             conditions: PrismaJson.TriggerCondition[];
             actions: PrismaJson.TriggerAction[];

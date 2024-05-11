@@ -20,4 +20,16 @@
             box-shadow: none !important;
         }
     }
+
+    &-transparent {
+        color: $danger;
+        border: none;
+
+        &:active,
+        &:focus,
+        &:hover {
+            border: none;
+            color: shade-color( $danger, 20% ) !important;
+        }
+    }
 }

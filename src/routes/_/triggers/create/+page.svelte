@@ -7,10 +7,8 @@
     import Text from '$lib/components/inputs/Text.svelte';
     import Icon from '$lib/components/Icon.svelte';
     import Button from '$lib/components/Button.svelte';
-    import { formDataToObject } from '$lib/utils';
     import Alert from '$lib/components/Alert.svelte';
     import TextToSpeech from '$lib/components/offcanvas/TextToSpeech.svelte';
-    import Tags from '$lib/components/inputs/Tags.svelte';
 
     const { data } = $props();
 
@@ -52,9 +50,18 @@
         }
     })
 </script>
-<h1 class="site--title">Triggers</h1>
+<h1 class="site--title">Create a trigger</h1>
 
 <Form {enhance} method="POST" action="?/createTrigger" class="create-trigger">
+    <div class="row mb-5">
+        <div class="col-lg-8">
+            <Text 
+                name="name"
+                label="Trigger name"
+                required
+            />
+        </div>
+    </div>
     <Section title="Event">
         <div class="row">
             <div class="col-lg-8 d-flex align-items-center gap-4">
@@ -136,6 +143,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <Button 
+                            type="button"
+                            variant="transparent"
+                            icon="close"
+                            on:click={ () => triggerConditions.splice( i, 1 ) }
+                            title="Remove trigger"
+                        />
+                    </div>
                 </div>
             </div>
         {/each}
@@ -170,6 +186,17 @@
                             data-bs-target="#offcanvas-tts-{ i }">Edit</button>
                     </div>
                 </div>
+                {#if i > 0}
+                    <div class="col-lg-4 d-flex align-items-center">
+                        <Button 
+                            type="button"
+                            variant="transparent"
+                            icon="close"
+                            on:click={ () => triggerActions.splice( i, 1 ) }
+                            title="Remove action"
+                        />
+                    </div>
+                {/if}
             </div>
             
             {#if action.type === 'tts'}
